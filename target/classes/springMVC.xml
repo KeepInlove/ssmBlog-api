@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p= "http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--扫描-->
+    <context:component-scan base-package="com.controller"/>
+    <!--配置文件解析器对象-->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+    <!--    <property name="maxUploadSize" value="10485760"  />-->
+    <!--</bean>-->
+<!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-NF/pages"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--3.两个标准配置:将springMVC不能处理的请求交给默认处理器(tomcat)-->
+    <mvc:default-servlet-handler/>
+    <!--添加注解支持,映射动态请求,JSR303校验,快解ajax-->
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+    <!--解决跨域问题-->
+    <mvc:cors>
+        <mvc:mapping path="/api/**"
+        allowed-origins="*"
+        allowed-methods="POST,GET,OPTIONS,DELETE,PUT,PATCH"
+        allowed-headers="*"
+        allow-credentials="true"/>
+    </mvc:cors>
+</beans>
