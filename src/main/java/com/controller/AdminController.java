@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.entry.Admin;
+import com.entry.UserLog;
 import com.service.AdminService;
+import com.service.UserLogService;
 import com.utils.IPUstils;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +29,8 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private AdminService adminService;
-
+    @Autowired
+    private UserLogService userLogService;
     @PostMapping(value="/login", produces = {"application/json;charset=UTF-8"})
 //    @ResponseBody // 序列化--> 类型转换--> jackson --> json
     public ResponseMessage login(@RequestParam String username,
@@ -39,17 +44,17 @@ public class AdminController {
             map.put("msg","用户名或密码错误");
             return ResponseMessage.error().addObject("_data",map);
         }
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String ipAddress = IPUstils.getIpAddress(request);
-        map.put("date",timestamp);
-        map.put("ip",ipAddress);
+        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String time = df.format(new Date());
+        UserLog userLog = new UserLog();
+        userLog.setUsername(user.getUsername());
+        userLog.setIp(IPUstils.getIpAddress(request));
+        userLog.setTime(time);
+        userLog.setCity("中国-南京");
+//        boolean b = userLogService.insert(userLog);
+//        System.out.println("登录记录"+b);
+
         map.put("loginUser",user);
-        System.out.println(ipAddress);
-        System.out.println(timestamp);
-        System.out.println(user);
-        System.out.println("----");
         return  ResponseMessage.success().addObject("_data",map);
     }
-
-
 }

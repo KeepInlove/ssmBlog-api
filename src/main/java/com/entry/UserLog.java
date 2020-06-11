@@ -1,6 +1,7 @@
 package com.entry;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author GUO
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
 public class UserLog {
     private Integer id;
     private String username;
-    private Timestamp time;
+    private String time;
     private String ip;
     private String city;
 
@@ -31,11 +32,11 @@ public class UserLog {
         this.username = username;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

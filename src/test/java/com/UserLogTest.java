@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,10 +27,11 @@ public class UserLogTest {
    private UserLogService userLogService;
     @Test
     public void insertUserLog(){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String s = df.format(new Date());
         UserLog userLog=new UserLog();
         userLog.setUsername("admin");
-        userLog.setTime(timestamp);
+        userLog.setTime(s);
         userLog.setIp("127.0.0.1");
         userLog.setCity("中国-南京");
         boolean b = userLogService.insert(userLog);
@@ -38,5 +41,14 @@ public class UserLogTest {
     public void findAllUserLog(){
         List<UserLog> userLogList = userLogService.findAll();
         System.out.println(userLogList);
+    }
+    @Test
+    public void DataTest(){
+        Date date=new Date(System.currentTimeMillis());
+        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String s = df.format(new Date());
+        System.out.println(s);
+        System.out.println("----");
+        System.out.println(date);
     }
 }
