@@ -34,4 +34,6 @@
         allowed-headers="*"
         allow-credentials="true"/>
     </mvc:cors>
+
+
 </beans>

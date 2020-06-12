@@ -3,7 +3,6 @@ package com.controller;
 import com.entry.Data;
 import com.service.DataService;
 import com.utils.ResponseMessage;
-import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

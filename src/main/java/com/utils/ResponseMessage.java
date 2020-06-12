@@ -11,15 +11,15 @@ import java.util.Map;
  * @Date 2020/5/12 23:03
  */
 public class ResponseMessage {
-    private String code;//状态码
+    private Integer code;//状态码
     private String msg;//状态描述描述
     private Map<String,Object> objectMap=new HashMap<>();//返回数据
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -46,13 +46,13 @@ public class ResponseMessage {
     }
     public static  ResponseMessage success(){
         ResponseMessage rm=new ResponseMessage();
-        rm.setCode("200");
+        rm.setCode(200);
         rm.setMsg("处理成功");
         return rm;
     }
     public static  ResponseMessage error(){
         ResponseMessage rm=new ResponseMessage();
-        rm.setCode("400");
+        rm.setCode(400);
         rm.setMsg("处理失败");
         return rm;
     }

@@ -4,14 +4,18 @@ import com.entry.Admin;
 import com.entry.UserLog;
 import com.service.AdminService;
 import com.service.UserLogService;
+import com.sun.deploy.net.HttpResponse;
 import com.utils.IPUstils;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
+import java.net.HttpCookie;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,29 +36,32 @@ public class AdminController {
     @Autowired
     private UserLogService userLogService;
     @PostMapping(value="/login", produces = {"application/json;charset=UTF-8"})
-//    @ResponseBody // 序列化--> 类型转换--> jackson --> json
     public ResponseMessage login(@RequestParam String username,
                                  @RequestParam String password,
-                                 HttpSession session, HttpServletRequest request) {
+                                 HttpSession session) {
         Admin user = adminService.findUser(username, password);
         // 记录登录用户
-        session.setAttribute("loginUser", user);
-        Map map=new HashMap() ;
-        if (user==null){
-            map.put("msg","用户名或密码错误");
-            return ResponseMessage.error().addObject("_data",map);
-        }
-        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String time = df.format(new Date());
-        UserLog userLog = new UserLog();
-        userLog.setUsername(user.getUsername());
-        userLog.setIp(IPUstils.getIpAddress(request));
-        userLog.setTime(time);
-        userLog.setCity("中国-南京");
+        Map map=new HashMap();
+        if (user!=null) {
+            session.setAttribute("loginUser", user);
+            String token=new Date()+user.getUsername();
+        /*    登录日志记录
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String time = df.format(new Date());
+            UserLog userLog = new UserLog();
+            userLog.setUsername(user.getUsername());
+            userLog.setIp(IPUstils.getIpAddress(request));
+            userLog.setTime(time);
+            userLog.setCity("中国-南京");
+           */
 //        boolean b = userLogService.insert(userLog);
 //        System.out.println("登录记录"+b);
-
-        map.put("loginUser",user);
-        return  ResponseMessage.success().addObject("_data",map);
+            map.put("loginUser",user);
+            map.put("token",token);
+            return  ResponseMessage.success().addObject("_data",map);
+        } else {
+            map.put("msg","密码或账号错误！");
+            return ResponseMessage.error().addObject("_data",map);
+        }
     }
 }

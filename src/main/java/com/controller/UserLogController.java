@@ -1,15 +1,13 @@
 package com.controller;
 
+
 import com.entry.UserLog;
 import com.service.UserLogService;
 import com.utils.ResponseMessage;
-import com.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,33 +33,32 @@ public class UserLogController {
         }
         return ResponseMessage.success().addObject("userLogList",userLogList);
     }
+
     @GetMapping("/findByUsername/{username}")
-    public ResponseMessage findByUsername(@PathVariable String username,HttpSession session){
-        List<UserLog> userLogName= userLogService.findByUsername(username);
+    public ResponseMessage findByUsername(@PathVariable String username, HttpSession session,
+                                          HttpServletResponse response){
+        List<UserLog> userLogs= userLogService.findByUsername(username);
         Map maps=new HashMap();
         maps.put("msg","查询成功");
-        maps.put("userLogName",userLogName);
-        boolean b = SessionUtils.getsSession(session);
-        if (!b){
-            return  ResponseMessage.error().addObject("msg","操作错误");
-        }
-        return ResponseMessage.success().addObject("_data",maps);
+        maps.put("userLogs",userLogs);
+
+//        if (!b){
+//            return  ResponseMessage.error().addObject("msg","操作错误");
+//        }
+        System.out.println(userLogs);
+        return ResponseMessage.success().addObject("_data",userLogs);
     }
-    @GetMapping("/findByUsername/{city}")
+    @GetMapping("/findByCity/{city}")
     public ResponseMessage findByCity(@PathVariable String city,HttpSession session){
         List<UserLog> userLogCity = userLogService.findByCity(city);
-        DateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String s = df.format(new Date());
         System.out.println(userLogCity);
         Map maps=new HashMap();
         maps.put("msg","查询成功");
         maps.put("userLogCity",userLogCity);
-        boolean b = SessionUtils.getsSession(session);
-        if (!b){
-            return  ResponseMessage.error().addObject("msg","操作错误");
-        }
         return ResponseMessage.success().addObject("_data",maps);
     }
+//    JSESSIONID=AAB198AAB0063F941DDB3104093E1F7D
+//    JSESSIONID=FD00271B19773691FB65F2C552A9C220
     //删除功能
         @GetMapping("/delete/{id}")
         public ResponseMessage deleteUserLogById(@PathVariable Integer id){

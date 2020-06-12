@@ -22,7 +22,7 @@ public interface UserLogDao {
     List<UserLog>findAll();
     @Select("select * from userlog where username=#{username} ")
     List<UserLog>findByUsername(String username);
-    @Select("select * from userlog where city=#{city}")
+    @Select("select * from userlog where city like '%${name}%'")
     List<UserLog>findByCity(String city);
     @Delete("delete from userlog where id=#{id}")
     boolean delete(Integer id);

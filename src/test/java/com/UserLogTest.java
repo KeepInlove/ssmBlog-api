@@ -51,4 +51,19 @@ public class UserLogTest {
         System.out.println("----");
         System.out.println(date);
     }
+    @Test
+    public void findByUsername(){
+        List<UserLog> userLogList= userLogService.findByUsername("admin");
+        int size = userLogList.size();
+        System.out.println(userLogList);
+        System.out.println(size);
+    }
+    @Test
+    public void findByCity(){
+        List<UserLog> cityList = userLogService.findByCity("南京");
+        int size = cityList.size();
+        System.out.println(size);
+        System.out.println(cityList);
+    }
+
 }
