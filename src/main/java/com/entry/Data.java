@@ -1,4 +1,6 @@
 package com.entry;
+import java.io.Serializable;
+
 
 /**
  * @author GUO
@@ -6,7 +8,7 @@ package com.entry;
  * @Description TODO
  * @Date 2020/6/11 9:29
  */
-public class Data {
+public class Data implements Serializable {
     private String name;
     private String work;
     private String address;

@@ -1,9 +1,6 @@
 package com.service;
 
 import com.entry.UserLog;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Select;
-
 import java.util.List;
 
 /**

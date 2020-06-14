@@ -24,4 +24,10 @@ public class DataTest {
         Data data = dataService.findData();
         System.out.println(data);
     }
+    @Test
+    public void update(){
+        Data data = dataService.findData();
+        data.setQq("123456789");
+        dataService.update(data);
+    }
 }

@@ -5,6 +5,7 @@ import com.service.DataService;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class DataController {
         map.put("data",data);
         return ResponseMessage.success().addObject("data",map);
     }
-    @GetMapping("/updateData")
+    @PostMapping("/updateData")
     public ResponseMessage updateData(Data data){
         boolean b = dataService.update(data);
         return b ? ResponseMessage.success().addObject("msg","操作成功"):ResponseMessage.error().addObject("msg","操失败");

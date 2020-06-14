@@ -1,15 +1,14 @@
 package com.entry;
 
-import java.sql.Timestamp;
-import java.util.Date;
 
+import java.io.Serializable;
 /**
  * @author GUO
  * @Classname Userlog
  * @Description TODO
  * @Date 2020/6/10 18:33
  */
-public class UserLog {
+public class UserLog implements  Serializable {
     private Integer id;
     private String username;
     private String time;

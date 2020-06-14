@@ -1,28 +1,34 @@
 package com;
 
-import com.entry.Admin;
-import com.service.AdminService;
+import com.entry.Lab;
+import com.service.LabService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 /**
  * @author GUO
- * @Classname AdminTest
+ * @Classname LabTest
  * @Description TODO
- * @Date 2020/6/9 20:48
+ * @Date 2020/6/14 22:41
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class AdminTest {
-
+public class LabTest {
     @Autowired
-    private AdminService adminService;
+   private LabService labService;
     @Test
-    public void login(){
-        Admin user = adminService.findUser("admin", "admin");
-        System.out.println(user);
+    public void select(){
+        Lab lab = labService.selectLab(1);
+        System.out.println(lab);
+    }
+    @Test
+    public void findAll(){
+        List<Lab> labList = labService.findAll();
+        System.out.println(labList);
     }
 }

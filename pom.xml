@@ -13,11 +13,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.1</version>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>javax.servlet.jsp</groupId>-->
+        <!--    <artifactId>jsp-api</artifactId>-->
+        <!--    <version>2.2</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.5.4</version>
+            <version>0.9.5.5</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -118,7 +118,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
         </dependency>
-        <!--逆向生成jar包-->
     </dependencies>
     <build>
         <plugins>
