@@ -13,7 +13,7 @@ import java.util.Map;
 public class ResponseMessage {
     private Integer code;//状态码
     private String msg;//状态描述描述
-    private Map<String,Object> objectMap=new HashMap<>();//返回数据
+    private Map<String,Object> data=new HashMap<>();//返回数据
 
     public Integer getCode() {
         return code;
@@ -31,17 +31,18 @@ public class ResponseMessage {
         this.msg = msg;
     }
 
-    public Map<String, Object> getObjectMap() {
-        return objectMap;
+
+    public Map<String, Object> getData() {
+        return data;
     }
 
-    public void setObjectMap(Map<String, Object> objectMap) {
-        this.objectMap = objectMap;
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
     //
     public ResponseMessage addObject(String key,Object value){
-        this.objectMap.put(key,value);
+        this.data.put(key,value);
         return this;
     }
     public static  ResponseMessage success(){

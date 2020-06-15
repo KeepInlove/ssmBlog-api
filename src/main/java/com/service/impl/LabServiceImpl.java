@@ -23,8 +23,8 @@ public class LabServiceImpl implements LabService {
         return labDao.insertLab(lab);
     }
     @Override
-    public Lab selectLab(Integer id) {
-        return labDao.selectLab(id);
+    public Lab selectLab(String name) {
+        return labDao.selectLabByName(name);
     }
 
     @Override

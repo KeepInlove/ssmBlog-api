@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface LabService {
     boolean insertLab(Lab lab);
-    Lab selectLab(Integer id);
+    Lab selectLab(String name);
     List<Lab> findAll();
     boolean deleteLab(Integer id);
     boolean updateLab(Integer id);

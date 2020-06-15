@@ -17,11 +17,14 @@ import java.util.List;
  */
 @Repository
 public interface LabDao {
-    @Insert("insert into lab labname values #{labname} ")
+    @Insert("insert into lab name values #{name} ")
     boolean insertLab(Lab lab);
 
-    @Select("select * from lab where labId=#{labId}")
-    Lab selectLab(Integer labId);
+    @Select("select * from lab where labId=#{labId} ")
+    Lab selectById(Integer labId);
+
+    @Select("select * from lab where name like '%${name}%'")
+    Lab selectLabByName(String name);
 
     @Select("select * from lab")
     List<Lab> findAll();

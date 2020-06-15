@@ -12,9 +12,6 @@ public class Lab implements Serializable {
     private Integer labId;
     private String name;
 
-
-
-
     public Integer getLabId() {
         return labId;
     }

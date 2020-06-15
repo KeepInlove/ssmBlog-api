@@ -23,8 +23,8 @@ public class LabTest {
    private LabService labService;
     @Test
     public void select(){
-        Lab lab = labService.selectLab(1);
-        System.out.println(lab);
+//        Lab lab = labService.selectLab();
+//        System.out.println(lab);
     }
     @Test
     public void findAll(){

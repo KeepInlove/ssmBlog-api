@@ -78,7 +78,6 @@ public class Blog implements Serializable {
         return "Blog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", lab_id=" + lab_id +
                 ", lab=" + lab +
                 ", markdown='" + markdown + '\'' +
                 ", html='" + html + '\'' +
