@@ -11,21 +11,7 @@
 </head>
 <body>
 <div>
-    <div class="hljs-center">
-        <h1><a id="Vue_2"></a>Vue</h1>
-    </div>
-    <ol>
-        <li>使用markdown编辑并且存储到数据库</li>
-        <li>vue导入markdown插件</li>
-    </ol>
-    <pre><code class="lang-language">
-     此次是代码块部分
-    &lt;script&gt;
-    // 导入组件 及 组件样式
-    import { mavonEditor } from 'mavon-editor'
-    import 'mavon-editor/dist/css/index.css'
-    &lt;/script&gt;
-</code></pre>
+    <p>1、定义：<br />\n虚拟DOM其实就是一棵以 JavaScript 对象( VNode 节点)作为基础的树，用对象属性来描述节点， 实际上它只是一层对真实 DOM 的抽象。最终可以通过一系列操作使这棵树映射到真实环境上。<br />\n相当于在js与DOM之间做了一个缓存，利用patch（diff算法）对比新旧虚拟DOM记录到一个对象中按需更新， 最后创建真实的DOM</p>\n<p>虚拟dom原理流程\\n模板 ==&gt; 渲染函数 ==&gt; 虚拟DOM树 ==&gt; 真实DOM\\n\\nvuejs通过编译将模板（template）转成渲染函数（render），执行渲染函数可以得到一个虚拟节点树\\n\\n在对 Model 进行操作的时候，会触发对应 Dep 中的 Watcher 对象。Watcher 对象会调用对应的 update 来修改视图。<a href=\"https://blog.csdn.net/weixin_43924228/article/details/106586783\" target=\"_blank\">原文地址</a></p>\n
 </div>
 </body>
 </html>

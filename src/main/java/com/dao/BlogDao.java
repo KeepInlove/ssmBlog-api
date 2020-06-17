@@ -49,6 +49,10 @@ public interface BlogDao {
     @Update("update blog set title=#{title},markdown=#{markdown},html=#{html},data=#{data},lab_id=#{lab_id} where id=#{id}")
     boolean updateBlog(Blog blog);
 
+    @Update("update blog set mg_state=#{mg_state} where id=#{id}")
+    boolean updateMg_state(Blog blog);
+
     @Delete("delete from blog where id=#{id}")
     boolean delete(Integer id);
+
 }

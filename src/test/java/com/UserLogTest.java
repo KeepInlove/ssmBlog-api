@@ -60,10 +60,13 @@ public class UserLogTest {
     }
     @Test
     public void findByCity(){
-        List<UserLog> cityList = userLogService.findByCity("南京");
-        int size = cityList.size();
-        System.out.println(size);
-        System.out.println(cityList);
+//        List<UserLog> cityList = userLogService.findByCity("南京");
+//        int size = cityList.size();
+//        System.out.println(size);
+//        System.out.println(cityList);
+        boolean a=true;
+        System.out.println(a);
     }
+
 
 }

@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.entry.Blog;
-import com.entry.Lab;
 import com.service.BlogService;
 import com.service.LabService;
 import com.utils.ResponseMessage;
@@ -10,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author GUO
@@ -47,6 +46,18 @@ public class BlogController {
         List<Blog> blogList = blogService.selectByTitle(data);
         return ResponseMessage.success().addObject("blogList",blogList);
     }
+    @GetMapping("/findStatus")
+    public ResponseMessage findStatus(){
+        List<Blog> blogList = blogService.findAllBlog();
+        int i=1;
+        /*java8根据某一属性条件快速筛选list中的集合*/
+        blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
+//         blogList.forEach(Blog -> {
+//            System.out.println(Blog.getId());
+//        });
+        Collections.reverse(blogList);//倒叙list集合
+        return ResponseMessage.success().addObject("blogList",blogList);
+    }
     @GetMapping("/findAllBlog")
     public ResponseMessage findAllBlog(){
         List<Blog> blogList = blogService.findAllBlog();
@@ -55,7 +66,7 @@ public class BlogController {
     @PostMapping(value = "/addBlog/{labName}",produces = {"application/json;charset=UTF-8"})
     public ResponseMessage addBlog(@RequestBody Blog blog,@PathVariable  String labName){
         blog.setLab_id(labService.selectLab(labName).getLabId());
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String time = df.format(new Date());
         blog.setData(time);
         boolean b = blogService.addBlog(blog);
@@ -64,8 +75,7 @@ public class BlogController {
     }
     @RequestMapping(value = "/updateBlog",method = RequestMethod.PUT)
     public ResponseMessage updateBlog(@RequestBody Blog blog,@PathVariable  String labName){
-        boolean b = blogService.updateBlog(blog);
-
+        boolean b = blogService.updateBlog(blog.getId());
         return  b ? ResponseMessage .success():ResponseMessage.error();
     }
     @RequestMapping(value = "/deleteBlog/{id}",method = RequestMethod.DELETE)

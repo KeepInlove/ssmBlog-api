@@ -71,7 +71,19 @@ public class BlogTest {
 //        System.out.println(b);
         List<Blog> blogList = blogService.findAllBlog();
         System.out.println(blogList);
+    }
+    @Test
+    public void updateBlog(){
 
     }
+    @Test
+    public void updateStatus(){
+        Blog blog = blogService.selectBlogById(1);
+        boolean status = blog.getMg_state();
+        System.out.println(status);
+        boolean b = blogService.updateMg_state(1);
+        System.out.println(blogService.selectBlogById(1));
 
+
+    }
 }

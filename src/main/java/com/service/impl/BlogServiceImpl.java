@@ -4,10 +4,10 @@ import com.dao.BlogDao;
 import com.dao.LabDao;
 import com.entry.Blog;
 
-import com.entry.Lab;
 import com.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -25,7 +25,10 @@ public class BlogServiceImpl implements BlogService {
     private LabDao labDao;
     @Override
     public Blog selectBlogById(Integer id) {
-        return blogDao.selectBlogById(id);
+        Blog blog = blogDao.selectBlogById(id);
+//        String returnHtml = HtmlUtils.htmlUnescape( blog.getHtml());
+//        blog.setHtml(returnHtml);
+        return blog;
     }
 
     @Override
@@ -50,16 +53,63 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public boolean addBlog(Blog blog) {
-        return blogDao.addBlog(blog);
+        List<Blog> blogList = blogDao.selectByTitle(blog.getTitle());
+        if (blogList!=null&&blogList.size()>0){
+            return false;
+        }else {
+//            String html = HtmlUtils.htmlEscapeHex(blog.getHtml());
+//            blog.setHtml(html);
+            return blogDao.addBlog(blog);
+        }
     }
 
     @Override
-    public boolean updateBlog(Blog blog) {
-        return blogDao.updateBlog(blog);
+    public boolean updateBlog(Integer id) {
+        Blog blog = blogDao.selectBlogById(id);
+        return blog!=null ? blogDao.updateBlog(blog):false;
     }
 
     @Override
     public boolean delete(Integer id) {
         return blogDao.delete(id);
+    }
+
+//    @Override
+//    public boolean updateStatus(Integer id) {
+//        Blog blog = blogDao.selectBlogById(id);
+//        if (blog!=null){
+//            Integer status = blog.getStatus();
+//            Integer i=1;
+//            Integer o=0;
+//           if(i.equals(status)) {
+//               blog.setStatus(o);
+//           }else {
+//               blog.setStatus(i);
+//           }
+////            boolean status = blog.isStatus();
+//            System.out.println("修改前状态:"+status);
+////            blog.setStatus(!status);
+////            System.out.println(blog);
+//            return blogDao.updateStatus(blog);
+//        }else {
+//            return false;
+//        }
+//    }
+
+    @Override
+    public boolean updateMg_state(Integer id) {
+        Blog blog = blogDao.selectBlogById(id);
+        if (blog!=null){
+            Boolean mg_state = blog.getMg_state();
+            if (mg_state==true){
+                blog.setMg_state(false);
+            }else {
+                blog.setMg_state(true);
+            }
+            return blogDao.updateMg_state(blog);
+        }
+        else {
+            return false;
+        }
     }
 }

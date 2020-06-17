@@ -1,9 +1,6 @@
 package com.service;
 
-import com.dao.LabDao;
 import com.entry.Blog;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 /**
@@ -19,6 +16,7 @@ public interface BlogService {
     List<Blog>selectByTitle(String title);
     List <Blog> findAllBlog();
     boolean addBlog(Blog blog);
-    boolean updateBlog(Blog blog);
+    boolean updateBlog(Integer id);
     boolean delete(Integer id);
+    boolean updateMg_state(Integer id);
 }
