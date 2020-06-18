@@ -74,7 +74,14 @@ public class BlogTest {
     }
     @Test
     public void updateBlog(){
-
+        Blog blog = blogService.selectBlogById(1);
+        blog.setTitle("Vue中的虚拟Dom");
+        System.out.println(blog);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String time = df.format(new Date());
+        blog.setData(time);
+        boolean b = blogService.updateBlog(blog);
+        System.out.println(b);
     }
     @Test
     public void updateStatus(){

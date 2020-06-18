@@ -73,10 +73,28 @@ public class BlogController {
         System.out.println(blog);
       return b ? ResponseMessage.success().addObject("tip","添加成功") : ResponseMessage.error().addObject("tip","添加失败");
     }
-    @RequestMapping(value = "/updateBlog",method = RequestMethod.PUT)
-    public ResponseMessage updateBlog(@RequestBody Blog blog,@PathVariable  String labName){
-        boolean b = blogService.updateBlog(blog.getId());
+    @RequestMapping(value = "/updateBlog/{labName}",method = RequestMethod.PUT,produces = {"application/json;charset=UTF-8"})
+    public ResponseMessage updateBlog(@RequestBody Blog blog,@PathVariable String labName){
+        Blog blog1 = blogService.selectBlogById(blog.getId());
+        if (blog1!=null){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String time = df.format(new Date());
+        blog1.setLab_id(labService.selectLab(labName).getLabId());
+        blog1.setData(time);
+        blog1.setTitle(blog.getTitle());
+        blog1.setMarkdown(blog.getMarkdown());
+        blog1.setHtml(blog.getHtml());
+        boolean b = blogService.updateBlog(blog1);
         return  b ? ResponseMessage .success():ResponseMessage.error();
+        }
+        else {
+            return ResponseMessage.error().addObject("msg","未查到该文章");
+        }
+    }
+    @GetMapping("/updateStates/{id}")
+    public ResponseMessage updateStates(@PathVariable Integer id){
+        boolean b = blogService.updateMg_state(id);
+        return b ? ResponseMessage.success():ResponseMessage.error();
     }
     @RequestMapping(value = "/deleteBlog/{id}",method = RequestMethod.DELETE)
     public ResponseMessage deleteBlog(@PathVariable Integer id){

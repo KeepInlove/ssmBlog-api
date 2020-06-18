@@ -64,9 +64,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public boolean updateBlog(Integer id) {
-        Blog blog = blogDao.selectBlogById(id);
-        return blog!=null ? blogDao.updateBlog(blog):false;
+    public boolean updateBlog(Blog blog) {
+        return blogDao.updateBlog(blog);
     }
 
     @Override

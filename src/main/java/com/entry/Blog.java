@@ -16,7 +16,6 @@ public class Blog implements Serializable {
     private String markdown;
     private String html;
     private String data;
-    private Integer status;
     private Boolean mg_state;
 
     public Boolean getMg_state() {
@@ -25,14 +24,6 @@ public class Blog implements Serializable {
 
     public void setMg_state(Boolean mg_state) {
         this.mg_state = mg_state;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getLab_id() {
@@ -101,7 +92,6 @@ public class Blog implements Serializable {
                 ", markdown='" + markdown + '\'' +
                 ", html='" + html + '\'' +
                 ", data='" + data + '\'' +
-                ", status=" + status +
                 ", mg_state=" + mg_state +
                 '}';
     }
