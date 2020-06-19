@@ -4,13 +4,8 @@ import com.entry.Data;
 import com.service.DataService;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author GUO
@@ -25,13 +20,11 @@ public class DataController {
    private DataService dataService;
     @GetMapping("/findData")
    public ResponseMessage findData(){
-        Map map=new HashMap();
         Data data = dataService.findData();
-        map.put("data",data);
-        return ResponseMessage.success().addObject("data",map);
+        return ResponseMessage.success().addObject("user",data);
     }
-    @PostMapping("/updateData")
-    public ResponseMessage updateData(Data data){
+    @RequestMapping(value = "/updateData",method = RequestMethod.PUT,produces = {"application/json;charset=UTF-8"})
+    public ResponseMessage updateData(@RequestBody Data data){
         boolean b = dataService.update(data);
         return b ? ResponseMessage.success().addObject("msg","操作成功"):ResponseMessage.error().addObject("msg","操失败");
     }

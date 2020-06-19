@@ -1,6 +1,9 @@
 package com.service;
 
 import com.entry.Blog;
+import com.entry.Page;
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -19,4 +22,7 @@ public interface BlogService {
     boolean updateBlog(Blog blog);
     boolean delete(Integer id);
     boolean updateMg_state(Integer id);
+    int total();
+//    分页查询
+    PageInfo<Blog> findAllBlogByPage(int pageNum, int pageSize);
 }

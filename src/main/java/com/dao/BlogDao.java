@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.entry.Blog;
+import com.entry.Page;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -55,4 +56,9 @@ public interface BlogDao {
     @Delete("delete from blog where id=#{id}")
     boolean delete(Integer id);
 
+//    @Select("select * from blog limit #{start},#{count}")
+//    List<Blog>list(Page page);
+
+    @Select("SELECT COUNT(*) FROM blog")
+    int total();
 }

@@ -4,10 +4,12 @@ import com.dao.BlogDao;
 import com.dao.LabDao;
 import com.entry.Blog;
 
+import com.entry.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Blog> selectByData(String data) {
-        return selectByData(data);
+        return blogDao.selectByData(data);
     }
 
     @Override
@@ -110,5 +112,21 @@ public class BlogServiceImpl implements BlogService {
         else {
             return false;
         }
+    }
+
+    @Override
+    public int total() {
+        return blogDao.total();
+    }
+
+//    分页查询
+    @Override
+    public PageInfo<Blog> findAllBlogByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        // 调用数据层 , 查询所有的产品!
+        List<Blog> blogList = blogDao.findAllBlog();
+        // 参数传递查询到的产品集合 , 放到PageInfo对象中.
+        PageInfo<Blog> pageInfo = new PageInfo<>(blogList);
+        return pageInfo;
     }
 }

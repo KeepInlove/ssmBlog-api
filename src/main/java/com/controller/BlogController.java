@@ -1,10 +1,13 @@
 package com.controller;
 
 import com.entry.Blog;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.BlogService;
 import com.service.LabService;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -34,16 +37,19 @@ public class BlogController {
     @GetMapping("/selectBlogByLabName/{name}")
     public ResponseMessage selectBlogByLabName(@PathVariable String name){
         List<Blog> blogList = blogService.selectBlogByLabName(name);
+        blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
         return ResponseMessage.success().addObject("blogList",blogList);
     }
-    @GetMapping("/selectByTitle/{title}")
-    public ResponseMessage selectByTitle(@PathVariable String title){
+    @GetMapping("/selectByTitle")
+    public ResponseMessage selectByTitle(String title){
         List<Blog> blogList = blogService.selectByTitle(title);
+        blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
         return ResponseMessage.success().addObject("blogList",blogList);
     }
-    @GetMapping("/selectByData/{data}")
-    public ResponseMessage selectByData(@PathVariable String data){
-        List<Blog> blogList = blogService.selectByTitle(data);
+    @GetMapping("/selectByData")
+    public ResponseMessage selectByData(String data){
+        List<Blog> blogList = blogService.selectByData(data);
+        blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
         return ResponseMessage.success().addObject("blogList",blogList);
     }
     @GetMapping("/findStatus")
@@ -63,6 +69,15 @@ public class BlogController {
         List<Blog> blogList = blogService.findAllBlog();
         return ResponseMessage.success().addObject("blogList",blogList);
     }
+    /**
+     *   查询所有的信息 , 并进行分页.
+     */
+    @RequestMapping(value = "/findAllBlogByPage")
+    public ResponseMessage findAllBlogByPage(@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum,
+                                       @RequestParam("pageSize")int pageSize){
+        PageInfo<Blog>pageInfo=blogService.findAllBlogByPage(pageNum,pageSize);
+        return ResponseMessage.success().addObject("blogList",pageInfo);
+    }
     @PostMapping(value = "/addBlog/{labName}",produces = {"application/json;charset=UTF-8"})
     public ResponseMessage addBlog(@RequestBody Blog blog,@PathVariable  String labName){
         blog.setLab_id(labService.selectLab(labName).getLabId());
@@ -77,7 +92,7 @@ public class BlogController {
     public ResponseMessage updateBlog(@RequestBody Blog blog,@PathVariable String labName){
         Blog blog1 = blogService.selectBlogById(blog.getId());
         if (blog1!=null){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String time = df.format(new Date());
         blog1.setLab_id(labService.selectLab(labName).getLabId());
         blog1.setData(time);
