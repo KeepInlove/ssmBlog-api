@@ -11,7 +11,9 @@ import com.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author GUO
@@ -125,6 +127,8 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(pageNum, pageSize);
         // 调用数据层 , 查询所有的产品!
         List<Blog> blogList = blogDao.findAllBlog();
+//        Collections.reverse(blogList);//倒叙list集合
+//        System.out.println(blogList);
         // 参数传递查询到的产品集合 , 放到PageInfo对象中.
         PageInfo<Blog> pageInfo = new PageInfo<>(blogList);
         return pageInfo;

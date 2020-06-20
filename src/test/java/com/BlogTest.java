@@ -16,8 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author GUO
@@ -117,7 +119,11 @@ public class BlogTest {
     }
     @Test
     public void blogPage(){
-
+        PageInfo<Blog>pageInfo=blogService.findAllBlogByPage(1,5);
+        System.out.println(pageInfo);
+//        List<Blog> blogList = pageInfo.getList();
+//        blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
+//        System.out.println(blogList);
     }
 
 }
