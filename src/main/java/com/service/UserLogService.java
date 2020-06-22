@@ -1,6 +1,7 @@
 package com.service;
-
 import com.entry.UserLog;
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ public interface UserLogService {
     List<UserLog>findByUsername(String username);
     List<UserLog>findByCity(String city);
     boolean delete(Integer id);
+    PageInfo<UserLog> findAllLogByPage(int pageNum, int pageSize);
 }

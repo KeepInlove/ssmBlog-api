@@ -16,9 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -51,9 +49,11 @@ public class BlogTest {
     }
     @Test
     public void selectByData(){
-        List<Blog> blogList = blogService.selectByData("2020-06-17");
-        System.out.println(blogList.size());
+        List<Blog> blogList = blogService.selectByData("2020-06-18");
+        Map map=new HashMap();
+//            System.out.println(blog.getData());
 //        System.out.println(blogList);
+        System.out.println(map);
     }
     @Test
     public void selectBlogByLabName(){
@@ -125,5 +125,16 @@ public class BlogTest {
 //        blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
 //        System.out.println(blogList);
     }
-
+    @Test
+    public void selectBlogByData(){
+        List<Blog> list = blogService.findAllBlog();
+        Map<String,Integer> map=new HashMap();
+        list.forEach(Blog->{
+            String data=Blog.getData();
+            map.put(data,Blog.getId());
+        });
+        for (String str :  map.keySet()) {
+            System.out.println(str);
+        }
+    }
 }

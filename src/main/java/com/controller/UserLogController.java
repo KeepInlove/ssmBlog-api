@@ -2,6 +2,7 @@ package com.controller;
 
 
 import com.entry.UserLog;
+import com.github.pagehelper.PageInfo;
 import com.service.UserLogService;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +24,19 @@ import java.util.Map;
 public class UserLogController {
     @Autowired
     private UserLogService userLogService;
-    @GetMapping("/findAllUserLog")
-    public ResponseMessage findAllUserLog(){
-        Map map=new HashMap();
-        List<UserLog> userLogList = userLogService.findAll();
-        if (userLogList==null){
-            map.put("msg","小二正在维护路上");
-            return ResponseMessage.error().addObject("_data",map);
-        }
-        return ResponseMessage.success().addObject("userLogList",userLogList);
+    @GetMapping("/findAllLogPage")
+    public ResponseMessage findAllUserLog(@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum,
+                                          @RequestParam("pageSize")int pageSize){
+        PageInfo<UserLog> pageInfo = userLogService.findAllLogByPage(pageNum, pageSize);
+        return ResponseMessage.success().addObject("pageInfo",pageInfo);
     }
-
     @GetMapping("/findByUsername/{username}")
-    public ResponseMessage findByUsername(@PathVariable String username, HttpSession session,
-                                          HttpServletResponse response){
+    public ResponseMessage findByUsername(@PathVariable String username){
         List<UserLog> userLogs= userLogService.findByUsername(username);
         Map maps=new HashMap();
         maps.put("msg","查询成功");
         maps.put("userLogs",userLogs);
-
-//        if (!b){
-//            return  ResponseMessage.error().addObject("msg","操作错误");
-//        }
-        System.out.println(userLogs);
-        return ResponseMessage.success().addObject("_data",userLogs);
+        return ResponseMessage.success().addObject("logList",userLogs);
     }
     @GetMapping("/findByCity/{city}")
     public ResponseMessage findByCity(@PathVariable String city,HttpSession session){

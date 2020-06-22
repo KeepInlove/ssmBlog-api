@@ -1,7 +1,10 @@
 package com.service.impl;
 
 import com.dao.UserLogDao;
+import com.entry.Blog;
 import com.entry.UserLog;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.UserLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +47,13 @@ public class UserLogServiceImpl implements UserLogService {
     public boolean delete(Integer id) {
         boolean b = userLogDao.delete(id);
         return b;
+    }
+
+    @Override
+    public PageInfo<UserLog> findAllLogByPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<UserLog> logList = userLogDao.findAll();
+        PageInfo<UserLog>pageInfo=new PageInfo<>(logList);
+        return pageInfo;
     }
 }

@@ -51,10 +51,8 @@ public class BlogController {
         blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
         return ResponseMessage.success().addObject("blogList",blogList);
     }
-
     @GetMapping("/findStatusPage")
-    public ResponseMessage findStatusPage(@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum,
-                                      @RequestParam("pageSize")int pageSize){
+    public ResponseMessage findStatusPage(@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum, @RequestParam("pageSize")int pageSize){
         PageInfo<Blog>pageInfo=blogService.findAllBlogByPage(pageNum,pageSize);
         List<Blog> blogList= pageInfo.getList();
         /*java8根据某一属性条件快速筛选list中的集合*/
