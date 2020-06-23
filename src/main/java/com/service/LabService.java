@@ -15,5 +15,5 @@ public interface LabService {
     Lab selectLab(String name);
     List<Lab> findAll();
     boolean deleteLab(Integer id);
-    boolean updateLab(Integer id);
+    boolean updateLab(Lab lab);
 }

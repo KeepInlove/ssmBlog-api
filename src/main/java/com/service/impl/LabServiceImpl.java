@@ -38,7 +38,7 @@ public class LabServiceImpl implements LabService {
     }
 
     @Override
-    public boolean updateLab(Integer id) {
-        return labDao.deleteLab(id);
+    public boolean updateLab(Lab lab) {
+        return labDao.updateLab(lab.getLabId());
     }
 }

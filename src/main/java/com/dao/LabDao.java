@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public interface LabDao {
-    @Insert("insert into lab name values #{name} ")
+    @Insert("insert into lab (name) value (#{name}) ")
     boolean insertLab(Lab lab);
 
     @Select("select * from lab where labId=#{labId} ")

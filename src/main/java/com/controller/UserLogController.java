@@ -7,7 +7,6 @@ import com.service.UserLogService;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -50,9 +49,9 @@ public class UserLogController {
 //    JSESSIONID=AAB198AAB0063F941DDB3104093E1F7D
 //    JSESSIONID=FD00271B19773691FB65F2C552A9C220
     //删除功能
-        @RequestMapping(value="/delete/{id}",method = RequestMethod.DELETE)
-        public ResponseMessage deleteUserLogById(@PathVariable Integer id){
-            boolean b = userLogService.delete(id);
-            return b ?ResponseMessage.success().addObject("msg","删除成功"):ResponseMessage.error().addObject("msg","操作失败");
-        }
+    @RequestMapping(value="/delete/{id}",method = RequestMethod.DELETE)
+    public ResponseMessage deleteUserLogById(@PathVariable Integer id){
+        boolean b = userLogService.delete(id);
+        return b ?ResponseMessage.success().addObject("msg","删除成功"):ResponseMessage.error().addObject("msg","操作失败");
+    }
 }

@@ -37,7 +37,17 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Blog> selectBlogByLabName(String name) {
-        return blogDao.selectBlogByLabId(labDao.selectLabByName(name).getLabId());
+        Integer labId = labDao.selectLabByName(name).getLabId();
+        if (labId!=null&&labId>0){
+            List<Blog> blogList = blogDao.selectBlogByLabId(labId);
+            if (blogList!=null&&blogList.size()>0){
+                return blogList;
+            }else {
+                return null;
+            }
+        }else {
+            return null;
+        }
     }
 
     @Override
