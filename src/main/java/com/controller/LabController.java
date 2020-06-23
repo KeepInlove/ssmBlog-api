@@ -35,7 +35,7 @@ public class LabController {
         List<LB>lbs=new ArrayList<>();
         List<Lab> labList = labService.findAll();
         labList.forEach(lab -> {
-            System.out.println(lab.getName());
+//            System.out.println(lab.getName());
             LB lb=new LB();
             lb.setStu(true);
             List<Blog> list = blogService.selectBlogByLabName(lab.getName());

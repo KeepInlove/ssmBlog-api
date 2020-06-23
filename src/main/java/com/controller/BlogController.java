@@ -36,8 +36,12 @@ public class BlogController {
     @GetMapping("/selectBlogByLabName/{name}")
     public ResponseMessage selectBlogByLabName(@PathVariable String name){
         List<Blog> blogList = blogService.selectBlogByLabName(name);
+        if(blogList==null){
+            return ResponseMessage.error().addObject("tip","此标签暂无文章");
+        }else {
         blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
         return ResponseMessage.success().addObject("blogList",blogList);
+        }
     }
     @GetMapping("/selectByTitle")
     public ResponseMessage selectByTitle(String title){
@@ -96,7 +100,7 @@ public class BlogController {
         String time = df.format(new Date());
         blog.setData(time);
         boolean b = blogService.addBlog(blog);
-        System.out.println(blog);
+//        System.out.println(blog);
       return b ? ResponseMessage.success().addObject("tip","添加成功") : ResponseMessage.error().addObject("tip","添加失败");
     }
     @RequestMapping(value = "/updateBlog/{labName}",method = RequestMethod.PUT,produces = {"application/json;charset=UTF-8"})
