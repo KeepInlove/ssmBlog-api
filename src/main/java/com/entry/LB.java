@@ -9,7 +9,16 @@ package com.entry;
 public class LB {
     private String name;
     private Integer count;
+    private Integer value;
     private Boolean stu;
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
 
     public Boolean getStu() {
         return stu;
@@ -40,6 +49,7 @@ public class LB {
         return "LB{" +
                 "name='" + name + '\'' +
                 ", count=" + count +
+                ", value=" + value +
                 ", stu=" + stu +
                 '}';
     }

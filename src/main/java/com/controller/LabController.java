@@ -43,10 +43,12 @@ public class LabController {
             if (list==null){
                 lb.setName(lab.getName());
                 lb.setCount(0);
+                lb.setValue(0);
                 lbs.add(lb);
             }else {
                 lb.setName(lab.getName());
                 lb.setCount(list.size());
+                lb.setValue(list.size());
                 lbs.add(lb);
             }
         });

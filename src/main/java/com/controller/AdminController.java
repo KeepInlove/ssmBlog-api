@@ -4,18 +4,12 @@ import com.entry.Admin;
 import com.entry.UserLog;
 import com.service.AdminService;
 import com.service.UserLogService;
-import com.sun.deploy.net.HttpResponse;
 import com.utils.IPUstils;
 import com.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.HttpCookie;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,14 +32,14 @@ public class AdminController {
     @PostMapping(value="/login", produces = {"application/json;charset=UTF-8"})
     public ResponseMessage login(@RequestParam String username,
                                  @RequestParam String password,
-                                 HttpSession session) {
+                                 HttpSession session,HttpServletRequest request) {
         Admin user = adminService.findUser(username, password);
         // 记录登录用户
         Map map=new HashMap();
         if (user!=null) {
             session.setAttribute("loginUser", user);
             String token=new Date()+user.getUsername();
-        /*    登录日志记录
+//            登录日志记录
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String time = df.format(new Date());
             UserLog userLog = new UserLog();
@@ -53,7 +47,6 @@ public class AdminController {
             userLog.setIp(IPUstils.getIpAddress(request));
             userLog.setTime(time);
             userLog.setCity("中国-南京");
-           */
 //        boolean b = userLogService.insert(userLog);
 //        System.out.println("登录记录"+b);
             map.put("loginUser",user);
