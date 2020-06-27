@@ -55,6 +55,11 @@ public class BlogController {
         blogList=blogList.stream().filter(Blog->Blog.getMg_state()==true).collect(Collectors.toList());
         return ResponseMessage.success().addObject("blogList",blogList);
     }
+    @GetMapping("/findBlogCount")
+    public ResponseMessage findBlogCount(){
+        int total = blogService.total();
+        return ResponseMessage.success().addObject("blogTotal",total);
+    }
     @GetMapping("/findStatusPage")
     public ResponseMessage findStatusPage(@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum, @RequestParam("pageSize")int pageSize){
         PageInfo<Blog>pageInfo=blogService.findAllBlogByPage(pageNum,pageSize);

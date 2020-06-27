@@ -23,7 +23,7 @@ public interface LabDao {
     @Select("select * from lab where labId=#{labId} ")
     Lab selectById(Integer labId);
 
-    @Select("select * from lab where name like '%${name}%'")
+    @Select("select * from lab where name=#{name}")
     Lab selectLabByName(String name);
 
     @Select("select * from lab")

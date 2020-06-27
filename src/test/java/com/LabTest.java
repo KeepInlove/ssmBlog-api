@@ -39,25 +39,27 @@ public class LabTest {
     }
     @Test
     public void findAll(){
-        List<Lab> labList = labService.findAll();
-        System.out.println(labList);
+//        List<Lab> labList = labService.findAll();
+        Lab lab = labService.selectLab("JavaScript");
+        System.out.println(lab);
     }
     @Test
     public void findLabAndBlog(){
         List<LB>lbs=new ArrayList<>();
         List<Lab> labList = labService.findAll();
         labList.forEach(lab -> {
-            System.out.println(lab.getName());
+//            System.out.println(lab.getName());
             LB lb=new LB();
+            lb.setStu(true);
+            lb.setName(lab.getName());
+            lb.setId(lab.getLabId());
             List<Blog> list = blogService.selectBlogByLabName(lab.getName());
-            System.out.println(list==null);
-            if (list==null){
-                lb.setName(lab.getName());
-                lb.setCount(0);
+//            System.out.println(list==null);
+            if (list==null||list.size()<0){
+                lb.setValue(0);
                 lbs.add(lb);
             }else {
-                lb.setName(lab.getName());
-                lb.setCount(list.size());
+                lb.setValue(list.size());
                 lbs.add(lb);
             }
         });

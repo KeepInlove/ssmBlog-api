@@ -8,7 +8,7 @@ package com.entry;
  */
 public class LB {
     private String name;
-    private Integer count;
+    private Integer id;
     private Integer value;
     private Boolean stu;
 
@@ -36,19 +36,19 @@ public class LB {
         this.name = name;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "LB{" +
                 "name='" + name + '\'' +
-                ", count=" + count +
+                ", id=" + id +
                 ", value=" + value +
                 ", stu=" + stu +
                 '}';

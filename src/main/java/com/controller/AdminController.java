@@ -32,7 +32,7 @@ public class AdminController {
     @PostMapping(value="/login", produces = {"application/json;charset=UTF-8"})
     public ResponseMessage login(@RequestParam String username,
                                  @RequestParam String password,
-                                 HttpSession session,HttpServletRequest request) {
+                                 HttpSession session, HttpServletRequest request) {
         Admin user = adminService.findUser(username, password);
         // 记录登录用户
         Map map=new HashMap();
@@ -44,10 +44,12 @@ public class AdminController {
             String time = df.format(new Date());
             UserLog userLog = new UserLog();
             userLog.setUsername(user.getUsername());
-            userLog.setIp(IPUstils.getIpAddress(request));
+            String ipAddress = IPUstils.getIpAddress(request);
+//            System.out.println(ipAddress);
+            userLog.setIp(ipAddress);
             userLog.setTime(time);
             userLog.setCity("中国-南京");
-//        boolean b = userLogService.insert(userLog);
+            boolean b = userLogService.insert(userLog);
 //        System.out.println("登录记录"+b);
             map.put("loginUser",user);
             map.put("token",token);

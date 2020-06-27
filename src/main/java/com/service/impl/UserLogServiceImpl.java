@@ -22,7 +22,6 @@ public class UserLogServiceImpl implements UserLogService {
     @Autowired
     private UserLogDao userLogDao;
 
-
     @Override
     public boolean insert(UserLog userLog) {
         return userLogDao.insert(userLog);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author GUO
@@ -30,6 +31,17 @@ public class MsgController {
         msg.setTime(time);
         boolean b = msgService.addMsg(msg);
         return b ? ResponseMessage.success().addObject("tip","留言成功") : ResponseMessage.error().addObject("tip","留言失败");
+    }
+    @GetMapping("/findAllMsg")
+    public ResponseMessage findAllMsg(){
+        List<Msg> msg = msgService.findAllMsg();
+        int size = msg.size();
+        return ResponseMessage.success().addObject("msg",size);
+    }
+    @GetMapping("/findMsg")
+    public ResponseMessage findMsg(){
+        List<Msg> msg = msgService.findAllMsg();
+        return ResponseMessage.success().addObject("msgList",msg);
     }
     @RequestMapping(value = "/findAllMsgByPage")
     public ResponseMessage findAllMsgByPage(@RequestParam(value = "pageNum" , defaultValue = "1")int pageNum,
